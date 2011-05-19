@@ -1,0 +1,45 @@
+.title
+  Mingle Settings
+
+%p
+  When you are viewing items in FFCRM MQL will be constructed using the details below (and the ID of the item you are viewing) in order to pull in a list of related Mingle cards.
+
+%ul
+  %li
+    You must indicate valid fields for the type of card you are selecting (the fields you wish to display)
+  %li
+    The card type in Mingle must have the following custom fields to store a link back to the relevant FFCRM items: CRMContact, CRMOrganisation and CRMOpportunity
+
+.list
+  .remote
+    = form_for(Contact.new, :html => one_submit_only(:account), :remote => true) do |f|
+      .section
+        %table
+          %tr
+            %td(colspan="3")
+              .label.top.req Mingle API URL:
+              = f.text_field :name, :style => "width:500px"
+          %tr
+            %td
+              .label.top.req Mingle user name:
+              = f.text_field :name, :style => "width:243px"
+            %td= spacer
+            %td
+              .label.top.req Mingle password:
+              = f.text_field :name, :style => "width:243px"
+          %tr
+            %td
+              .label.top.req Mingle card type:
+              = f.text_field :name, :style => "width:243px"
+            %td= spacer
+            %td
+          %tr
+            %td(colspan="3")
+              .label.top.req Mingle fields to display in lists: (e.g. "number, name, status, owner")
+              = f.text_field :name, :style => "width:500px"
+
+      .buttonbar
+        = f.submit 'Test'
+        = f.submit 'Save configuration'
+        #{t :or}
+        = link_to_cancel new_account_path
