@@ -12,34 +12,34 @@
 
 .list
   .remote
-    = form_for(Contact.new, :html => one_submit_only(:account), :remote => true) do |f|
+    = form_tag admin_mingle_index_path, :method => :put, :remote => true do
       .section
         %table
           %tr
             %td(colspan="3")
               .label.top.req Mingle API URL:
-              = f.text_field :name, :style => "width:500px"
+              = text_field_tag 'mingle[url]', @mingle[:url], :style => "width:500px"
           %tr
             %td
               .label.top.req Mingle user name:
-              = f.text_field :name, :style => "width:243px"
+              = text_field_tag 'mingle[username]', @mingle[:username], :style => "width:243px"
             %td= spacer
             %td
               .label.top.req Mingle password:
-              = f.text_field :name, :style => "width:243px"
+              = password_field_tag 'mingle[password]', @mingle[:password], :style => "width:243px"
           %tr
             %td
               .label.top.req Mingle card type:
-              = f.text_field :name, :style => "width:243px"
+              = text_field_tag 'mingle[card_type]', @mingle[:card_type], :style => "width:243px"
             %td= spacer
             %td
           %tr
             %td(colspan="3")
               .label.top.req Mingle fields to display in lists: (e.g. "number, name, status, owner")
-              = f.text_field :name, :style => "width:500px"
+              = text_field_tag 'mingle[fields]', @mingle[:fields], :style => "width:500px"
 
       .buttonbar
-        = f.submit 'Test'
-        = f.submit 'Save configuration'
+        = submit_tag 'Test', :name => :test
+        = submit_tag 'Save configuration', :name => :save
         #{t :or}
-        = link_to_cancel new_account_path
+        = link_to_cancel admin_mingle_index_path
