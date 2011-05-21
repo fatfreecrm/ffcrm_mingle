@@ -1,0 +1,14 @@
+%ul
+  - @contact.cards do |card|
+    %li[card]{ highlightable(dom_id(card, :tools)) }
+      - owner = User.find_by_username(card.owner)
+      = link_to avatar_for(card.user, :size => "25x25"), user_path(card.user)
+
+      .tools{ invisible, :id => dom_id(card, :tools) }
+        =# link_to_edit(card) + " | "
+        =# link_to_delete(card)
+
+      .indentslim
+        = link_to owner.name, user_path(owner)
+        %tt= t(:time_ago, distance_of_time_in_words(Time.now, comment.created_at))
+        %dt= auto_link(simple_format h(comment.comment))
