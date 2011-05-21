@@ -43,34 +43,32 @@ protected
   end
 
   def api_get
-    page = 1
+    mql = "SELECT #{@mingle[:fields]} WHERE 'Type' = '#{@mingle[:card_type]}'"
 
-    request = Net::HTTP::Get.new("#{@mingle[:url]}.xml?page=#{page}&filters[]=[Type][is][#{@mingle[:card_type]}]")
+    request = Net::HTTP::Post.new("#{@mingle[:url]}/execute_mql.xml")
     request.basic_auth(@mingle[:username], @mingle[:password])
+    request.set_form_data({"mql" => mql, "_method" => "get"})
 
     response = connection.request(request)
     if response.code == '200'
       results = Nokogiri::XML.parse(response.body)
 
-      results.xpath('//card').each do |card|
-        fields = @mingle[:fields].split(/,\s*/).map do |field|
-          value = card.xpath(field)[0]
-          value.content if value
-        end.compact
-        flash[:notice] = "#{fields.shift}: #{fields.join(', ')}"
+      results.xpath('//result').each do |result|
+        hash = {}
+        result.element_children.map { |node| hash[node.name] = node.content }
+        flash[:notice] = hash.map { |k,v| "#{k}: #{v}" }.join(', ')
       end
     else
       flash[:notice] = "#{response.code}: #{response.body}"
     end
   end
 
-  def api_put
-    number = 1
+  def api_post
     description = 'Test'
 
-    request = Net::HTTP::Put.new("#{@mingle[:url]}/#{number}.xml")
+    request = Net::HTTP::Post.new("#{@mingle[:url]}.xml")
     request.basic_auth(@mingle[:username], @mingle[:password])
-    request.set_form_data({"card[description]" => description})
+    request.set_form_data({"card[name]" => description})
 
     response = connection.request(request)
     if response.code == '200'
