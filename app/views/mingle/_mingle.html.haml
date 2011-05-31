@@ -1,0 +1,15 @@
+%li.task{ highlightable(dom_id(mingle, :tools)) }
+  - if mingle.respond_to?(:status) and mingle.status.present?
+    .strip{:class => 'meeting'}= mingle.status
+  - else
+    .strip.white #{t :other}
+
+  .tools{ invisible, :id => dom_id(mingle, :tools) }
+    =# link_to_edit(mingle) + " | "
+    =# link_to_delete(mingle)
+
+  .indent
+    - if mingle.respond_to?(:owner) and (owner = User.find_by_username(mingle.owner))
+      = link_to(owner.full_name, user_path(owner))
+
+    %tt== ##{h(mingle.number)}: #{h(mingle.name)}
