@@ -4,20 +4,22 @@ class MingleController < ApplicationController
   # GET /mingle
   #----------------------------------------------------------------------------
   def index
-    conditions = if params[:contact_id]
-      "CRMContact = #{params[:contact_id]}"
-    elsif params[:account_id]
-      "CRMOrganisation = #{params[:account_id]}"
-    elsif params[:opportunity_id]
-      "CRMOpportunity = #{params[:opportunity_id]}"
-    end
+    @mingles = Mingle.all
+  end
 
-    @mingles = Mingle.all(:conditions => conditions)
+  # GET /mingle/new
+  #----------------------------------------------------------------------------
+  def new
+    @mingle = Mingle.new(params[:mingle])
   end
 
   # POST /mingle
   #----------------------------------------------------------------------------
   def create
-    @mingle = Mingle.create(params[:mingle])
+    @mingle = Mingle.new(params[:mingle])
+    @mingle.properties << {'name' => 'owner', 'value' => @current_user.username}
+    if @mingle.save
+      @mingle = Mingle.all(:conditions => ["number = #{@mingle.number}"]).first
+    end
   end
 end

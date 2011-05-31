@@ -1,14 +1,15 @@
-%ul
-  - @contact.cards do |card|
-    %li[card]{ highlightable(dom_id(card, :tools)) }
-      - owner = User.find_by_username(card.owner)
-      = link_to avatar_for(card.user, :size => "25x25"), user_path(card.user)
+- related = @contact
+- assets = :mingle
+- asset = assets.to_s.singularize
+- create_id  = :"create_#{asset}"
+- select_id  = :"select_#{asset}"
+- create_url = controller.send(:"new_#{asset}_path", :mingle => {:properties => [{:name => "CRM #{related.class.name}", :value => related.id}]})
 
-      .tools{ invisible, :id => dom_id(card, :tools) }
-        =# link_to_edit(card) + " | "
-        =# link_to_delete(card)
+%br
+= content_tag(:div, link_to_inline(create_id, create_url, :related => dom_id(related), :text => t(create_id)), :class => "subtitle_tools")
+= content_tag(:div, t(assets), :class => :subtitle, :id => :"create_#{asset}_title")
+= content_tag(:div, "", :class => :remote, :id => create_id, :style => "display:none;")
 
-      .indentslim
-        = link_to owner.name, user_path(owner)
-        %tt= t(:time_ago, distance_of_time_in_words(Time.now, comment.created_at))
-        %dt= auto_link(simple_format h(comment.comment))
+%ul.log#mingle
+  - Mingle.all(:conditions => ["'CRM Contact' = #{related.id}"]).each do |mingle|
+    = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}

@@ -19,6 +19,7 @@ class Admin::MingleController < Admin::ApplicationController
 
     if params[:save]
       Setting[:mingle] = @mingle
+      Mingle.reset
       flash[:notice] = 'Mingle settings saved'
 
     elsif params[:test]
