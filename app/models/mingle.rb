@@ -42,12 +42,16 @@ class Mingle
     end
   end
 
+  def self.fields
+    Setting[:mingle][:fields].split(/\s*,\s*/)
+  end
+
   def self.project_all(params = {})
     conditions = params[:conditions] || []
     conditions << ["Type = '#{Setting[:mingle][:card_type]}'"]
 
     client.execute_mql(
-      "SELECT #{Setting[:mingle][:fields]} WHERE #{conditions.join(' AND ')}"
+      "SELECT '#{fields.join("', '")}' WHERE #{conditions.join(' AND ')}"
     ).map { |card| new(card) }
   end
 

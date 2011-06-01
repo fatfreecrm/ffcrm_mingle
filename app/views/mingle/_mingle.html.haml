@@ -12,4 +12,11 @@
     - if mingle.respond_to?(:owner) and (owner = User.find_by_username(mingle.owner))
       = link_to(owner.full_name, user_path(owner))
 
-    %tt== ##{h(mingle.number)}: #{h(mingle.name)}
+    %tt
+      - url = "#{mingle.class.site.to_s.gsub('/api/v2', '')}/cards/#{mingle.number}"
+      = link_to("##{mingle.number}: #{mingle.name}", url, :target => :_blank)
+      - Mingle.fields.reject {|f| %w(number name status owner).include?(f.downcase)}.map do |field|
+        %span><
+          = ", #{field.titleize}:"
+        %strong
+          = mingle.send(field.downcase.gsub(' ', '_'))
