@@ -11,11 +11,13 @@
     %tr
       %td
         .label.top.req Project:
-        = select_tag "mingle[project]", options_for_select([['TestIt', 'testit'], ['Village Development', 'village']]), :style => "width:160px;"
+        %br
+        = select_tag "mingle[project]", options_for_select(Mingle.project_options), :style => "width:240px;"
       %td= spacer
       %td
         .label.top.req Name:
-        = f.text_field :name, :style => "width:160px;"
+        %br
+        = f.text_field :name, :style => "width:240px;"
 
   .buttonbar
     = f.submit t(:create_mingle), :onclick => "crm.create_mingle()"

@@ -1,9 +1,5 @@
 class Mingle
 
-  def self.projects
-    @@projects ||= Setting[:mingle][:projects].split(/[,\s]+/)
-  end
-
   def self.client
     @@client ||= MingleClient.new(
       Setting[:mingle][:url],
@@ -13,9 +9,20 @@ class Mingle
     )
   end
 
+  def self.projects
+    @@projects ||= Setting[:mingle][:projects].split(/\s*,\s*/)
+  end
+
+  def self.project_options
+    @@project_options ||= Mingle4r::API::Project.find(:all).map do |project|
+      [project.name, project.identifier] if projects.include?(project.identifier)
+    end.compact
+  end
+
   def self.reset
-    @@projects = nil
-    @@client   = nil
+    @@client          = nil
+    @@projects        = nil
+    @@project_options = nil
   end
 
   def self.default_attributes
