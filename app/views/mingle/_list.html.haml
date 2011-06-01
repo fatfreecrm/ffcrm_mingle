@@ -1,4 +1,3 @@
-- related = @contact
 - assets = :mingle
 - asset = assets.to_s.singularize
 - create_id  = :"create_#{asset}"
@@ -11,5 +10,5 @@
 = content_tag(:div, "", :class => :remote, :id => create_id, :style => "display:none;")
 
 %ul.log#mingle
-  - Mingle.all(:conditions => ["'CRM Contact' = #{related.id}"]).each do |mingle|
+  - Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"]).each do |mingle|
     = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}
