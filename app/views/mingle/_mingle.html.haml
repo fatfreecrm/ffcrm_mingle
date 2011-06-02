@@ -13,7 +13,7 @@
       = link_to(owner.full_name, user_path(owner))
 
     %tt
-      - url = "#{mingle.class.site.to_s.gsub('/api/v2', '')}/cards/#{mingle.number}"
+      - url = "#{mingle.class.site.to_s.gsub('/api/v2', '').sub(/\/$/, '')}/cards/#{mingle.number}"
       = link_to("##{mingle.number}: #{mingle.name}", url, :target => :_blank)
       - Mingle.fields.reject {|f| %w(number name status owner).include?(f.downcase)}.map do |field|
         %span><
