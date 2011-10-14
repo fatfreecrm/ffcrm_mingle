@@ -9,7 +9,7 @@ FatFreeCRM::Plugin.register(:crm_mingle, self) do
             tab :admin, :text => "Mingle", :url => { :controller => "admin/mingle" }
 end
 
-if Setting[:mingle].blank?
+if (Setting[:mingle].blank? rescue true)
   puts "Please configure your mingle settings"
 else
   require "crm_mingle"
