@@ -1,5 +1,5 @@
 
-= form_for(:mingle, @mingle, :url => mingle_index_path, :html => one_submit_only(:mingle), :remote => true) do |f|
+= form_for(@mingle, :as => :mingle, :url => mingle_index_path, :html => one_submit_only(:mingle), :remote => true) do |f|
   - f.object.properties.each do |property|
     = hidden_field_tag "mingle[properties][][name]", property[:name]
     = hidden_field_tag "mingle[properties][][value]", property[:value]
