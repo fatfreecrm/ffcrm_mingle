@@ -9,6 +9,7 @@
 = content_tag(:div, t(assets), :class => :subtitle, :id => :"create_#{asset}_title")
 = content_tag(:div, "", :class => :remote, :id => create_id, :style => "display:none;")
 
-%ul.log#mingle
-  - Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"]).each do |mingle|
-    = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}
+- if mingle_configured?
+  %ul.log#mingle
+    - Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"]).each do |mingle|
+      = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}

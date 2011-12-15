@@ -1,1 +1,1 @@
-require 'crm_mingle/mingle_view_hooks'
+require 'crm_mingle/helpers'

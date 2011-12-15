@@ -1,25 +1,25 @@
+- if mingle_configured?
+  = form_for(@mingle, :as => :mingle, :url => mingle_index_path, :html => one_submit_only(:mingle), :remote => true) do |f|
+    - f.object.properties.each do |property|
+      = hidden_field_tag "mingle[properties][][name]", property[:name]
+      = hidden_field_tag "mingle[properties][][value]", property[:value]
 
-= form_for(@mingle, :as => :mingle, :url => mingle_index_path, :html => one_submit_only(:mingle), :remote => true) do |f|
-  - f.object.properties.each do |property|
-    = hidden_field_tag "mingle[properties][][name]", property[:name]
-    = hidden_field_tag "mingle[properties][][value]", property[:value]
+    = f.error_messages :object_name => t('mingle')
+    = link_to_close new_mingle_path
 
-  = f.error_messages :object_name => t('mingle')
-  = link_to_close new_mingle_path
+    %table
+      %tr
+        %td
+          .label.top.req Project:
+          %br
+          = select_tag "mingle[project]", options_for_select(Mingle.project_options), :style => "width:240px;"
+        %td= spacer
+        %td
+          .label.top.req Name:
+          %br
+          = f.text_field :name, :style => "width:240px;"
 
-  %table
-    %tr
-      %td
-        .label.top.req Project:
-        %br
-        = select_tag "mingle[project]", options_for_select(Mingle.project_options), :style => "width:240px;"
-      %td= spacer
-      %td
-        .label.top.req Name:
-        %br
-        = f.text_field :name, :style => "width:240px;"
-
-  .buttonbar
-    = f.submit t(:create_mingle), :onclick => "crm.create_mingle()"
-    #{t :or}
-    = link_to_cancel new_mingle_path
+    .buttonbar
+      = f.submit t(:create_mingle), :onclick => "crm.create_mingle()"
+      #{t :or}
+      = link_to_cancel new_mingle_path
