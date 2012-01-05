@@ -1,4 +1,4 @@
-FatFreeCRM::Application.routes.draw do
+FatFreeCrmMingle::Engine.routes.draw do
   resources :mingle
 
   namespace :admin do
