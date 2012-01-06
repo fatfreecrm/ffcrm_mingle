@@ -1,4 +1,4 @@
-class FatFreeCrmMingle::Admin::MingleController < ::Admin::ApplicationController
+class Admin::MingleController < Admin::ApplicationController
   before_filter :require_user
   before_filter "set_current_tab('admin/mingle')", :only => [ :index ]
 
