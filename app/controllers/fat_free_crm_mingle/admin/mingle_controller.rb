@@ -1,4 +1,4 @@
-class Admin::MingleController < Admin::ApplicationController
+class FatFreeCrmMingle::Admin::MingleController < ::Admin::ApplicationController
   before_filter :require_user
   before_filter "set_current_tab('admin/mingle')", :only => [ :index ]
 
@@ -19,11 +19,11 @@ class Admin::MingleController < Admin::ApplicationController
 
     if params[:save]
       Setting[:mingle] = @mingle
-      Mingle.reset
+      FatFreeCrmMingle::Mingle.reset
       flash[:notice] = 'Mingle settings saved'
 
     elsif params[:test]
-      flash[:notice] = Mingle.all(:conditions => ['Owner = CURRENT USER'])
+      flash[:notice] = FatFreeCrmMingle::Mingle.all(:conditions => ['Owner = CURRENT USER'])
     end
 
     respond_to do |format|

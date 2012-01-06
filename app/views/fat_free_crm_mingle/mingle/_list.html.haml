@@ -2,7 +2,7 @@
 - asset = assets.to_s.singularize
 - create_id  = :"create_#{asset}"
 - select_id  = :"select_#{asset}"
-- create_url = controller.send(:"new_#{asset}_path", :mingle => {:properties => [{:name => "CRM #{related.class.name}", :value => related.id}]})
+- create_url = controller.fat_free_crm_mingle.send("new_#{asset}_path", :mingle => {:properties => [{:name => "CRM #{related.class.name}", :value => related.id}]})
 
 %br
 = content_tag(:div, link_to_inline(create_id, create_url, :related => dom_id(related), :text => t(create_id)), :class => "subtitle_tools")
@@ -11,5 +11,5 @@
 
 - if mingle_configured?
   %ul.log#mingle
-    - Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"]).each do |mingle|
+    - FatFreeCrmMingle::Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"]).each do |mingle|
       = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}
