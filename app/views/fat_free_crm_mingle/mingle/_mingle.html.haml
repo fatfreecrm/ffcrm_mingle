@@ -16,7 +16,7 @@
       %tt
         - url = "#{mingle.class.site.to_s.gsub('/api/v2', '').sub(/\/$/, '')}/cards/#{mingle.number}"
         = link_to("##{mingle.number}: #{mingle.name}", url, :target => :_blank)
-        - FatFreeCrm::Mingle.fields.reject {|f| %w(number name status owner).include?(f.downcase)}.map do |field|
+        - FatFreeCrmMingle::Mingle.fields.reject {|f| %w(number name status owner).include?(f.downcase)}.map do |field|
           %span><
             = ", #{field.titleize}:"
           %strong
