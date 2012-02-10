@@ -4,7 +4,7 @@ module ::FatFreeCrmMingle
       if (Setting[:mingle].blank? rescue true)
         puts "Please configure your mingle settings"
       else
-        require 'fat_free_crm_mingle/mingle_view_hooks'
+        require 'ffcrm_mingle/mingle_view_hooks'
         FatFreeCRM::Tabs.admin << {
           :text => "Mingle",
           :url => { :controller => "admin/mingle" }

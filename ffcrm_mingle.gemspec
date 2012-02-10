@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path('../lib', __FILE__)
-require 'fat_free_crm_mingle/version'
+require 'ffcrm_mingle/version'
 
 Gem::Specification.new do |s|
-  s.name = 'fat_free_crm_mingle'
+  s.name = 'ffcrm_mingle'
   s.authors = ['Ben Tillman', 'Joshua Kunzmann']
   s.summary = 'Fat Free CRM - Mingle integration'
   s.description = 'Fat Free CRM - Mingle integration'
