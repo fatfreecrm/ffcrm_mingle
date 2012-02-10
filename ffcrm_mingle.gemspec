@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.summary = 'Fat Free CRM - Mingle integration'
   s.description = 'Fat Free CRM - Mingle integration'
   s.files = `git ls-files`.split("\n")
-  s.version = FatFreeCrmMingle::VERSION
+  s.version = FatFreeCRM::Mingle::VERSION
 
   s.add_development_dependency 'rspec-rails', '~> 2.6'
   s.add_development_dependency 'jquery-rails'

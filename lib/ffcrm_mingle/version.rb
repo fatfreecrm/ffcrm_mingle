@@ -1,3 +1,3 @@
-module FatFreeCrmMingle
+module FatFreeCRM::Mingle
   VERSION = '1.0.1'
 end
