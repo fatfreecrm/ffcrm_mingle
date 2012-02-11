@@ -19,11 +19,11 @@ class Admin::MingleController < Admin::ApplicationController
 
     if params[:save]
       Setting[:mingle] = @mingle
-      FatFreeCrmMingle::Mingle.reset
+      Mingle.reset
       flash[:notice] = 'Mingle settings saved'
 
     elsif params[:test]
-      flash[:notice] = FatFreeCrmMingle::Mingle.all(:conditions => ['Owner = CURRENT USER'])
+      flash[:notice] = Mingle.all(:conditions => ['Owner = CURRENT USER'])
     end
 
     respond_to do |format|

@@ -11,5 +11,5 @@
 
 - if mingle_configured?
   %ul.log#mingle
-    - FatFreeCrmMingle::Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"]).each do |mingle|
+    - Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"]).each do |mingle|
       = render :partial => 'fat_free_crm_mingle/mingle/mingle', :locals => {:mingle => mingle}

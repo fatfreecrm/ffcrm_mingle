@@ -1,4 +1,4 @@
-class FatFreeCrmMingle::Mingle
+class Mingle
 
   def self.client
     @@client ||= MingleClient.new(

@@ -12,7 +12,7 @@
         %td
           .label.top.req Project:
           %br
-          = select_tag "mingle[project]", options_for_select(FatFreeCrmMingle::Mingle.project_options), :style => "width:240px;"
+          = select_tag "mingle[project]", options_for_select(Mingle.project_options), :style => "width:240px;"
         %td= spacer
         %td
           .label.top.req Name:
