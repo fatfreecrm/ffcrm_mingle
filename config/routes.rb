@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  scope(:module => :fat_free_crm_mingle) do
-    resources :mingle
-  end
+  resources :mingle
 
   namespace :admin do
     resources :mingle, :only => :index do
