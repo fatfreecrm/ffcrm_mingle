@@ -10,7 +10,12 @@ class Mingle
   end
 
   def self.projects
-    @@projects ||= Setting[:mingle][:projects].split(/\s*,\s*/)
+    if mingle = Setting.mingle
+      if projects = mingle[:projects]
+        return @@projects ||= projects.split(/\s*,\s*/)
+      end
+    end
+    []
   end
 
   def self.project_options
