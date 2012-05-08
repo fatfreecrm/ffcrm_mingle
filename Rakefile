@@ -20,6 +20,7 @@ end
 
 require "rspec/core/rake_task"
 RSpec::Core::RakeTask.new(:spec) do |spec|
+  spec.pattern = Dir.glob(['spec/sitemap_generator/**/*'])
   spec.rspec_opts = ['--backtrace']
 end
 
