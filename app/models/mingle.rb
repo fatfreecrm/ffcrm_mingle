@@ -1,3 +1,5 @@
+require 'mingle4r'
+
 class Mingle
 
   def self.client
@@ -68,9 +70,15 @@ class Mingle
   end
 
   def self.all(*args)
-    projects.map do |proj_id|
-      client.proj_id = proj_id
-      project_all *args
-    end.flatten
+    begin
+      x = projects.map do |proj_id|
+        client.proj_id = proj_id
+        project_all *args
+      end.flatten
+    rescue ActiveResource::UnauthorizedAccess, e
+      Rails.logger.warn("Authorization to Mingle failed. Please check your credentials.")
+      x = []
+    end
+    x
   end
 end

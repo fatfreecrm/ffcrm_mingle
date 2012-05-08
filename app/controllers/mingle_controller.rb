@@ -10,7 +10,12 @@ class MingleController < ApplicationController
   # GET /mingle/new
   #----------------------------------------------------------------------------
   def new
-    @mingle = Mingle.new(params[:mingle])
+    begin
+      @mingle = Mingle.new(params[:mingle])
+      @error = false
+    rescue ActiveResource::UnauthorizedAccess
+      @error = true
+    end
   end
 
   # POST /mingle
