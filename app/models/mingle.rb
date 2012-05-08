@@ -57,7 +57,12 @@ class Mingle
   end
 
   def self.fields
-    Setting[:mingle][:fields].split(/\s*,\s*/)
+    if mingle = Setting.mingle
+      if fields = mingle[:fields]
+        return fields.split(/\s*,\s*/)
+      end
+    end
+    []
   end
 
   def self.project_all(params = {})
@@ -75,7 +80,7 @@ class Mingle
         client.proj_id = proj_id
         project_all *args
       end.flatten
-    rescue ActiveResource::UnauthorizedAccess, e
+    rescue ActiveResource::UnauthorizedAccess
       Rails.logger.warn("Authorization to Mingle failed. Please check your credentials.")
       x = []
     end
