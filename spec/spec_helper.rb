@@ -10,7 +10,6 @@ Combustion.initialize!
 require 'rspec/rails'
 require 'capybara/rails'
 require 'vcr'
-
 require 'rspec/autorun'
 
 VCR.configure do |c|

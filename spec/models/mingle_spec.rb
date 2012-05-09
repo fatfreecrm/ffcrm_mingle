@@ -77,24 +77,24 @@ describe Mingle do
   describe "reset should clear the" do
   
     it "client" do
-      Mingle.class_variable_set(:@@client, "TestClient")
-      Mingle.class_variable_get(:@@client).should == "TestClient"
+      Mingle.send(:class_variable_set, :@@client, "TestClient")
+      Mingle.send(:class_variable_get, :@@client).should == "TestClient"
       Mingle.reset
-      Mingle.class_variable_get(:@@client).should be_nil
+      Mingle.send(:class_variable_get, :@@client).should be_nil
     end
     
     it "projects" do
-      Mingle.class_variable_set(:@@projects, "Project1")
-      Mingle.class_variable_get(:@@projects).should == "Project1"
+      Mingle.send(:class_variable_set, :@@projects, "Project1")
+      Mingle.send(:class_variable_get, :@@projects).should == "Project1"
       Mingle.reset
-      Mingle.class_variable_get(:@@projects).should be_nil
+      Mingle.send(:class_variable_get, :@@projects).should be_nil
     end
     
     it "project options" do
-      Mingle.class_variable_set(:@@project_options, "Project options")
-      Mingle.class_variable_get(:@@project_options).should == "Project options"
+      Mingle.send(:class_variable_set, :@@project_options, "Project options")
+      Mingle.send(:class_variable_get, :@@project_options).should == "Project options"
       Mingle.reset
-      Mingle.class_variable_get(:@@project_options).should be_nil
+      Mingle.send(:class_variable_get, :@@project_options).should be_nil
     end
   
   end
