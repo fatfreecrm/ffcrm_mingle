@@ -1,21 +1,11 @@
 class MingleController < ApplicationController
   before_filter :require_user
-
-  # GET /mingle
-  #----------------------------------------------------------------------------
-  def index
-    @mingles = Mingle.all
-  end
+  around_filter :handle_active_resource_errors
 
   # GET /mingle/new
   #----------------------------------------------------------------------------
   def new
-    begin
-      @mingle = Mingle.new(params[:mingle])
-      @error = false
-    rescue ActiveResource::UnauthorizedAccess
-      @error = true
-    end
+    @mingle = Mingle.new(params[:mingle])
   end
 
   # POST /mingle
@@ -27,4 +17,18 @@ class MingleController < ApplicationController
       @mingle = Mingle.all(:conditions => ["number = #{@mingle.number}"]).first
     end
   end
+  
+protected
+
+  # handle certain errors ourselves
+  def handle_active_resource_errors
+    @error = false
+    begin
+      yield
+    rescue SocketError, ActiveResource::UnauthorizedAccess => e
+      @error = e
+      render and return
+    end
+  end
+
 end

@@ -1,5 +1,5 @@
 if @error
-  page[:flash].replace_html "Error authenticating with Mingle server. Please check your credentials."
+  page[:flash].replace_html t('mingle.ticket.error', :default => "There was an error getting the Mingle tickets. Please contact your administrator. #{@error}")
   page.call "crm.flash", :warning
 else
   page.call "crm.flick", :empty, :toggle

@@ -11,5 +11,10 @@
 
 - if mingle_configured?
   %ul.log#mingle
-    - Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"]).each do |mingle|
-      = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}
+    - tickets = tickets_related_to(related)
+    - if tickets.is_a?(Array)
+      - tickets.each do |mingle|
+        = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}
+    - else
+      .error
+        = t('mingle.ticket.error', :default => "There was an error getting the Mingle tickets. Please contact your administrator. #{tickets}")

@@ -13,6 +13,7 @@ group :test do
   gem 'pg'  # Default database for testing
   gem 'rspec'
   gem 'combustion'
+  gem 'spork'
   unless ENV["CI"]
     gem 'ruby-debug',   :platform => :mri_18
     gem 'debugger',     :platform => :mri_19
