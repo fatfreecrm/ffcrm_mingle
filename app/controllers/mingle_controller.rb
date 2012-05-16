@@ -25,7 +25,7 @@ protected
     @error = false
     begin
       yield
-    rescue SocketError, ActiveResource::UnauthorizedAccess, URI::BadURIError => e
+    rescue SocketError, ActiveResource::UnauthorizedAccess, ActiveResource::ForbiddenAccess, URI::BadURIError => e
       @error = e
       render and return
     end
