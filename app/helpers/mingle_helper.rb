@@ -7,7 +7,7 @@ module MingleHelper
   def tickets_related_to(related)
     begin
       Mingle.all(:conditions => ["'CRM #{related.class.name}' = #{related.id}"])
-    rescue SocketError, ActiveResource::UnauthorizedAccess => e
+    rescue SocketError, ActiveResource::UnauthorizedAccess, URI::BadURIError => e
       Rails.logger.warn("Error in mingle_helper.rb: #{e}")
       Rails.logger.warn(e.backtrace.join("\n"))
       e
