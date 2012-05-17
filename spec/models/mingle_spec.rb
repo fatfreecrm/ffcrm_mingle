@@ -64,14 +64,6 @@ describe Mingle do
       Mingle.all(:conditions => ["'CRM Account' = 1"]).should == []
     end
     
-    it "should catch authentication errors" do
-      original_mingle_settings = Setting[:mingle]
-      Setting[:mingle] = Setting[:mingle].merge( {:username => "", :password => ""} )
-      lambda{ Mingle.all }.should_not raise_error(ActiveResource::UnauthorizedAccess)
-      Mingle.all.should == []
-      Setting[:mingle] = original_mingle_settings
-    end
-    
   end
   
   describe "reset should clear the" do
