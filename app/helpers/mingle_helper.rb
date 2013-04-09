@@ -13,5 +13,5 @@ module MingleHelper
       e
     end
   end
-  
+
 end

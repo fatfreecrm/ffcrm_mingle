@@ -1,5 +1,5 @@
 - if mingle_configured?
-  %li.task.highlight[mingle]
+  %li.task.highlight
     - if mingle.respond_to?(:status) and mingle.status.present?
       .strip{:class => 'meeting'}= mingle.status
     - else
@@ -10,8 +10,7 @@
         = link_to(owner.full_name, user_path(owner))
 
       %tt
-        - url = "#{mingle.class.site.to_s.gsub('/api/v2', '').sub(/\/$/, '')}/cards/#{mingle.number}"
-        = link_to("##{mingle.number}: #{mingle.name}", url, :target => :_blank)
+        = link_to("##{mingle.number}: #{mingle.name}", Mingle.url(mingle), :target => :_blank)
         - Mingle.fields.reject {|f| %w(number name status owner).include?(f.downcase)}.map do |field|
           %span><
             = ", #{field.titleize}:"

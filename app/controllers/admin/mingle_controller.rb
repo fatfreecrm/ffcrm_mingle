@@ -23,7 +23,13 @@ class Admin::MingleController < Admin::ApplicationController
       flash[:notice] = 'Mingle settings saved'
 
     elsif params[:test]
-      flash[:notice] = Mingle.all(:conditions => ['Owner = CURRENT USER'])
+      begin
+        cards = Mingle.all(:conditions => ['Owner = CURRENT USER'])
+        flash[:notice] = "Successfully connected to Mingle"
+      rescue Exception => e
+        flash[:error] = "Error connecting to Mingle. Please check your settings."
+      end
+
     end
 
     respond_to do |format|

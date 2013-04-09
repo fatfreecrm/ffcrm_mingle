@@ -1,0 +1,7 @@
+<% if flash[:notice].present? %>
+  jQuery('#flash').html('<%= flash[:notice] %>')
+  crm.flash('notice')
+<% elsif flash[:error].present? %>
+  jQuery('#flash').html('<%= flash[:error] %>')
+  crm.flash('error')
+<% end %>

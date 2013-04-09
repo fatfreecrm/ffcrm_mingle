@@ -11,13 +11,10 @@ class MingleController < ApplicationController
   # POST /mingle
   #----------------------------------------------------------------------------
   def create
-    @mingle = Mingle.new(params[:mingle])
-    @mingle.properties << {'name' => 'owner', 'value' => @current_user.username}
-    if @mingle.save
-      @mingle = Mingle.all(:conditions => ["number = #{@mingle.number}"]).first
-    end
+    @mingle = Mingle.create(params[:mingle])
+    flash[:error] = @mingle.errors.full_messages if !@mingle.new_record? # failed to save card
   end
-  
+
 protected
 
   # handle certain errors ourselves
@@ -27,6 +24,7 @@ protected
       yield
     rescue Exception => e
       @error = e
+      Rails.logger.info(e)
       render and return
     end
   end

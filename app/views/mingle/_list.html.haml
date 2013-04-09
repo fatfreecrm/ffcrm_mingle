@@ -4,17 +4,18 @@
 - select_id  = :"select_#{asset}"
 - create_url = controller.send("new_#{asset}_path", :mingle => {:properties => [{:name => "CRM #{related.class.name}", :value => related.id}]})
 
-%br
-= content_tag(:div, link_to_inline(create_id, create_url, :related => dom_id(related), :text => t(create_id)), :class => "subtitle_tools")
-= content_tag(:div, t(assets), :class => :subtitle, :id => :"create_#{asset}_title")
-= content_tag(:div, "", :class => :remote, :id => create_id, :style => "display:none;")
+%div#mingle
+  %br
+  = content_tag(:div, link_to_inline(create_id, create_url, :related => dom_id(related), :text => t(create_id)), :class => "subtitle_tools")
+  = content_tag(:div, t(assets), :class => :subtitle, :id => :"create_#{asset}_title")
+  = content_tag(:div, "", :class => :remote, :id => create_id, :style => "display:none;")
 
-- if mingle_configured?
-  %ul.log#mingle
-    - tickets = tickets_related_to(related)
-    - if tickets.is_a?(Array)
-      - tickets.each do |mingle|
-        = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}
-    - else
-      .error
-        = t('mingle.ticket.error', :default => "There was an error getting the Mingle tickets. Please contact your administrator. #{tickets}")
+  - if mingle_configured?
+    %ul.log
+      - tickets = tickets_related_to(related)
+      - if tickets.is_a?(Array)
+        - tickets.each do |mingle|
+          = render :partial => 'mingle/mingle', :locals => {:mingle => mingle}
+      - else
+        .error
+          = t('mingle.ticket.error', :default => "There was an error getting the Mingle tickets. Please contact your administrator. #{tickets}")

@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name = 'ffcrm_mingle'
   s.authors = ['Ben Tillman', 'Joshua Kunzmann', 'Stephen Kenworthy']
   s.summary = 'Fat Free CRM - Mingle integration'
-  s.description = 'Fat Free CRM - Mingle integration'
+  s.description = 'This Fat Free CRM plugin provides create and view functionality for Mingle tickets inside the CRM.'
   s.files = `git ls-files`.split("\n")
   s.version = FatFreeCRM::Mingle::VERSION
 

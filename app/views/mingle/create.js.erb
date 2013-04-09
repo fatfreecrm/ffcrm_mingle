@@ -1,0 +1,14 @@
+<% if @mingle.valid? %>
+  jQuery('#create_mingle_arrow').html("&#9658;")
+  jQuery('#create_mingle_title').html('<%= j(t(:mingle))%>')
+  jQuery('#create_mingle').slideToggle('slow')
+
+  jQuery('#mingle ul.log').append('<%= j( render :partial => "mingle", :collection => [@mingle] ) %>')
+  jQuery('#mingle ul.log').children().last().effect("highlight", { duration:1500 });
+
+<% else %>
+  jQuery('#create_mingle').effect("shake", { duration:250, distance: 6 });
+  jQuery('#mingle_name').focus()
+  jQuery('#mingle_submit').enable()
+
+<% end %>

@@ -1,7 +1,0 @@
-mingle:
-  :url       : https://mingle.crossroads.org.hk
-  :path      : /api/v2/projects/gh/cards
-  :username  :
-  :password  :
-  :card_type : Deliverable
-  :fields    : number, name, status, owner
