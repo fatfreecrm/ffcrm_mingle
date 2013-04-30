@@ -1,0 +1,14 @@
+- if @error
+  jQuery('#flash').html('#{ j t('mingle.ticket.error', :default => "There was an error getting the Mingle tickets. Please contact your administrator. #{@error}") }');
+  crm.flash('warning');
+- else
+  crm.flick('empty', 'toggle');
+  - if called_from_index_page?
+    crm.hide_form('options');
+  crm.flip_form('create_mingle');
+
+  - unless params[:cancel].true?
+    jQuery('#create_mingle').html('#{ j render(:partial => "create") }');
+    crm.set_title('create_mingle', '#{ j t(:create_mingle) }');
+  - else
+    crm.set_title('create_mingle', '#{ j t(:mingle) }');
