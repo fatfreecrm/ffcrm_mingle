@@ -1,8 +1,6 @@
 language: ruby
 rvm:
   - 1.9.3
-  - 1.9.2
-  - 1.8.7
 
 gemfile: Gemfile
 
@@ -14,8 +12,4 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
 
 # Run specs, acceptance tests, and ensure that assets can compile without errors
-script: "bundle exec rake spec"
-
-# To stop Travis from running tests for a new commit,
-# add the following to your commit message: [ci skip]
-# You should add this when you edit documentation or comments, etc.
+script: "bundle exec rake"

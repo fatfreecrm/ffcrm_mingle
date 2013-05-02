@@ -1,44 +1,41 @@
-require 'rubygems'
-require 'spork'
+ENV['RAILS_ENV'] ||= 'test'
 
-Spork.prefork do
-  require 'bundler'
-  Bundler.require :default, :development
+require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+require 'rspec/rails'
 
-  require 'capybara/rspec'
-  Combustion.initialize!
+Rails.backtrace_cleaner.remove_silencers!
 
-  require 'rspec/rails'
-  require 'capybara/rails'
-  require 'vcr'
-  require 'rspec/autorun'
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 
-  VCR.configure do |c|
-    c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
-    c.hook_into :webmock # or :fakeweb
-  end
+RSpec.configure do |config|
+  # ## Mock Framework
+  #
+  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
+  #
+  # config.mock_with :mocha
+  # config.mock_with :flexmock
+  # config.mock_with :rr
+  config.mock_with :rspec
 
-  RSpec.configure do |config|
-    config.use_transactional_fixtures = true
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-    config.mock_with :rspec
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = true
 
-    config.filter_run :focused => true
-    config.run_all_when_everything_filtered = true
-    config.alias_example_to :fit, :focused => true
+  # If true, the base class of anonymous controllers will be inferred
+  # automatically. This will be the default behavior in future versions of
+  # rspec-rails.
+  config.infer_base_class_for_anonymous_controllers = false
 
-    config.extend VCR::RSpec::Macros
-  end
-end
+  # Run specs in random order to surface order dependencies. If you find an
+  # order dependency and want to debug it, you can fix the order by providing
+  # the seed, which is printed after each run.
+  #     --seed 1234
+  config.order = "random"
 
-Spork.each_run do
-  MingleSettings = {
-    :url => 'http://www.example.com/mingle',
-    :username => 'testuser',
-    :password => 'password',
-    :projects => 'proj1, proj2',
-    :card_type => 'Story',
-    :fields => 'number, name, status, owner',
-  }
-  Setting[:mingle] = MingleSettings
 end

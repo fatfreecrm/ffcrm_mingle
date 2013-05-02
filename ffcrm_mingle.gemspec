@@ -10,12 +10,7 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.version = FatFreeCRM::Mingle::VERSION
 
-  s.add_development_dependency 'rspec-rails', '~> 2.6'
-  s.add_development_dependency 'jquery-rails'
-  s.add_development_dependency 'combustion'
-  s.add_development_dependency 'capybara'
-  s.add_development_dependency 'webmock'
-  s.add_development_dependency 'vcr'
+  s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'pg'
   s.add_dependency 'fat_free_crm'
   s.add_dependency 'mingle4r'
