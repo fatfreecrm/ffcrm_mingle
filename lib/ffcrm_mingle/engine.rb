@@ -8,7 +8,8 @@ module FatFreeCRM
 
         tab_urls = FatFreeCRM::Tabs.admin.map{|tab| tab[:url]}.map{|url| url[:controller]}
         unless tab_urls.include? 'admin/mingle'
-          FatFreeCRM::Tabs.admin << {:url => { :controller => "admin/mingle" }, :text => "Mingle"}
+          FatFreeCRM::Tabs.admin << { url: { controller: "admin/mingle" },
+                                      text: "Mingle", icon: 'fa-maxcdn' }
         end
 
       end
