@@ -6,18 +6,18 @@ describe Mingle do
 
   before do
     Mingle.reset
-    Mingle.stub!(:client).and_return(client)
+    allow(Mingle).to receive(:client).and_return(client)
   end
 
   describe "projects" do
 
     it "should get a list of projects" do
-      Mingle.projects.sort.should == MingleSettings['projects'].split(/\s*,\s*/).sort
+      expect(Mingle.projects.sort).to eql(MingleSettings['projects'].split(/\s*,\s*/).sort)
     end
 
     it "should return empty list when Mingle is not setup" do
-      Setting.stub!(:[]).and_return(nil)
-      Mingle.projects.should == []
+      expect(Setting).to receive(:[]).and_return(nil)
+      expect(Mingle.projects).to eql([])
     end
 
   end
@@ -25,58 +25,54 @@ describe Mingle do
   describe "fields" do
 
     it "should get a list of fields" do
-      Mingle.fields.sort.should == MingleSettings['fields'].split(/\s*,\s*/).sort
+      expect(Mingle.fields.sort).to eql(MingleSettings['fields'].split(/\s*,\s*/).sort)
     end
 
     it "should return empty list when Mingle is not setup" do
-      Setting.stub!(:[]).and_return(nil)
-      Mingle.fields.should == []
+      expect(Setting).to receive(:[]).and_return(nil)
+      expect(Mingle.fields).to eql([])
     end
 
   end
 
   it "should return the default attributes" do
-    Mingle.default_attributes.keys.should include('card_type_name')
-    Mingle.default_attributes['card_type_name'].should == MingleSettings['card_type']
-    Mingle.default_attributes.keys.should include('name')
-    Mingle.default_attributes.keys.should include('properties')
+    expect(Mingle.default_attributes.keys).to include('card_type_name')
+    expect(Mingle.default_attributes['card_type_name']).to eql(MingleSettings['card_type'])
+    expect(Mingle.default_attributes.keys).to include('name')
+    expect(Mingle.default_attributes.keys).to include('properties')
   end
 
   describe "all" do
-
     it "with conditions for each project" do
-      client.should_receive(:execute_mql).exactly(Mingle.projects.size).times.with("SELECT 'number', 'name', 'status', 'owner' WHERE Type = 'Story' AND 'CRM Account' = 2").and_return([])
-      cards = Mingle.all(:conditions => ["'CRM Account' = 2"])
+      expect(client).to receive(:execute_mql).exactly(Mingle.projects.size).times.with("SELECT 'number', 'name', 'status', 'owner' WHERE Type = 'Story' AND 'CRM Account' = 2").and_return([])
+      Mingle.all(:conditions => ["'CRM Account' = 2"])
     end
-
   end
 
   describe "reset should clear the" do
 
     it "client" do
       Mingle.send(:class_variable_set, :@@client, "TestClient")
-      Mingle.send(:class_variable_get, :@@client).should == "TestClient"
+      expect(Mingle.send(:class_variable_get, :@@client)).to eql("TestClient")
       Mingle.reset
-      Mingle.send(:class_variable_get, :@@client).should be_nil
+      expect(Mingle.send(:class_variable_get, :@@client)). to eql(nil)
     end
 
     it "projects" do
       Mingle.send(:class_variable_set, :@@projects, "Project1")
-      Mingle.send(:class_variable_get, :@@projects).should == "Project1"
+      expect(Mingle.send(:class_variable_get, :@@projects)).to eql("Project1")
       Mingle.reset
-      Mingle.send(:class_variable_get, :@@projects).should be_nil
+      expect(Mingle.send(:class_variable_get, :@@projects)).to eql(nil)
     end
 
     it "project options" do
       Mingle.send(:class_variable_set, :@@project_options, "Project options")
-      Mingle.send(:class_variable_get, :@@project_options).should == "Project options"
+      expect(Mingle.send(:class_variable_get, :@@project_options)).to eql("Project options")
       Mingle.reset
-      Mingle.send(:class_variable_get, :@@project_options).should be_nil
+      expect(Mingle.send(:class_variable_get, :@@project_options)).to eql(nil)
     end
 
   end
-
-  it "should return the project options"
 
 end
 
@@ -84,7 +80,7 @@ describe "Mingle client" do
 
   it "should setup a new client if not already initialized" do
     project = MingleSettings[:projects].split(/\s*,\s*/).first
-    MingleClient.should_receive(:new).with(MingleSettings['url'], MingleSettings['username'], MingleSettings['password'], project)
+    expect(MingleClient).to receive(:new).with(MingleSettings['url'], MingleSettings['username'], MingleSettings['password'], project)
     Mingle.client
   end
 
